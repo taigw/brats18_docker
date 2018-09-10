@@ -14,8 +14,8 @@ The [brats18][github_code18] code supports test time augmentation, where the fin
 1. Download the source code of this repositry, and the source code of [brats18][github_code18] project.
 
 ```bash
-git clone git@cmiclab.cs.ucl.ac.uk:gwang/brats18_docker.git
-git clone git@cmiclab.cs.ucl.ac.uk:gwang/brats18.git
+git clone https://github.com/taigw/brats18_docker.git
+git clone https://github.com/taigw/brats18.git
 ```
 
 2. Build the docker image.
@@ -42,7 +42,7 @@ my_image=bc4a4f723ff2
 mkdir $directory/results
 docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python /data/brats18/docker/main.py /data/brats18/docker/test_cfg1.txt
 ```
-where `directory` is the dir in which the testing images are stored, such as `BraTS2018_Validation` and `BraTS2018_Testing`. Please set `directory` as full path of the folder containing testing images, and copy the folder `brats18` to $directory, and the folder looks like:
+where `directory` is the dir in which the testing images are stored, such as `BraTS2018_Validation` and `BraTS2018_Testing`. Please set `directory` as full path of the folder containing testing images, and copy the folder `brats18` to $directory. Then the folder should look like:
 
 ![Testing Path](./pic/testing_path.png)
 
