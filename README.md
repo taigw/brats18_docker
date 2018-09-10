@@ -1,4 +1,4 @@
-# Automatic Brain Tumor Segmentation using Cascaded Anisotropic CNNs
+# Automatic Brain Tumor Segmentation using Convolutional Neural Networks with Test-time augmentation
 Dockerfile and supporting files to create a new Docker image from the Source Code at [brats18][github_code18]
 for brain tumor segmentation, which is a revision of the original implementation of [brats17][github_code17] according to the following paper:
 
