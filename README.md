@@ -25,7 +25,7 @@ git clone https://github.com/taigw/brats18.git
 docker build . < Dockerfile
 ```
 
-You will get some screen outputs like `Successfully built bc4a4f723ff2` where `bc4a4f723ff2` is the docker image id.
+You will get some screen outputs like `Successfully built 4dff82933875` where `4dff82933875` is the docker image id.
 
 3. Set docker memory to 16G.
 
@@ -39,7 +39,6 @@ Since GPU computing with docker is not implemented, only CPU is used when runnin
 # content of ./single_prediction.sh
 directory=/Users/guotaiwang/Documents/data/BraTS2018_Validation
 my_image=4dff82933875
-mkdir $directory/results
 docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python docker/main.py docker/test_cfg.txt
 ```
 where `directory` is the dir in which the testing images are stored, such as `BraTS2018_Validation` and `BraTS2018_Testing`. Please set `directory` as full path of the folder containing testing images. Then the folder should look like:
