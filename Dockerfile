@@ -7,3 +7,4 @@ RUN pip install nibabel
 RUN pip install numpy
 RUN pip install tensorflow==1.7
 RUN pip install NiftyNet
+COPY brats18 ./

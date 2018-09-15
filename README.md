@@ -15,13 +15,13 @@ The [brats18][github_code18] code supports test time augmentation, where the fin
 
 ```bash
 git clone https://github.com/taigw/brats18_docker.git
+cd brats18_docker
 git clone https://github.com/taigw/brats18.git
 ```
 
 2. Build the docker image.
 
 ```bash
-cd brats18_docker
 docker build . < Dockerfile
 ```
 
@@ -38,11 +38,11 @@ Since GPU computing with docker is not implemented, only CPU is used when runnin
 ```bash
 # content of ./single_prediction.sh
 directory=/Users/guotaiwang/Documents/data/BraTS2018_Validation
-my_image=bc4a4f723ff2
+my_image=4dff82933875
 mkdir $directory/results
-docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python /data/brats18/docker/main.py /data/brats18/docker/test_cfg1.txt
+docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python docker/main.py docker/test_cfg.txt
 ```
-where `directory` is the dir in which the testing images are stored, such as `BraTS2018_Validation` and `BraTS2018_Testing`. Please set `directory` as full path of the folder containing testing images, and copy the folder `brats18` to $directory. Then the folder should look like:
+where `directory` is the dir in which the testing images are stored, such as `BraTS2018_Validation` and `BraTS2018_Testing`. Please set `directory` as full path of the folder containing testing images. Then the folder should look like:
 
 ![Testing Path](./pic/testing_path.png)
 
@@ -56,21 +56,20 @@ Set `my_image` as the docker image id obtained in the previous step. Note that e
 bash ./single_prediction.sh
 ```
 
-The segmentation results will be saved to $directory/results/results1.
+The segmentation results will be saved to $directory/Brats18_XXXX_XX_1/results/tumor_tiggw_class.nii.gz.
 
 6. To use test-time augmentation with multiple predictions. Open the `./multiple_predictions.sh` file and edit `directory` and `my_image`.
 
 ```bash
 # content of ./multiple_predictions.sh
 directory=/Users/guotaiwang/Documents/data/BraTS2018_Validation
-my_image=bc4a4f723ff2
-mkdir $directory/results
-docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python /data/brats18/docker/main.py /data/brats18/docker/test_cfg1.txt
-docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python /data/brats18/docker/main.py /data/brats18/docker/test_cfg2.txt
-docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python /data/brats18/docker/main.py /data/brats18/docker/test_cfg3.txt
-docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python /data/brats18/docker/main.py /data/brats18/docker/test_cfg4.txt
-docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python /data/brats18/docker/main.py /data/brats18/docker/test_cfg5.txt
-docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python /data/brats18/docker/vote_result.py /data/brats18/docker/vote_result_cfg.txt
+my_image=4dff82933875
+docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python docker/main.py docker/test_cfg_tta1.txt
+docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python docker/main.py docker/test_cfg_tta2.txt
+docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python docker/main.py docker/test_cfg_tta3.txt
+docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python docker/main.py docker/test_cfg_tta4.txt
+docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python docker/main.py docker/test_cfg_tta5.txt
+docker run -v $directory:/data --workdir=/usr/src/app -i -t $my_image python docker/vote_result.py docker/vote_result_cfg.txt
 ```
 
 As an example, five predictions are obtained and then fused into a single prediction here.
@@ -81,7 +80,7 @@ As an example, five predictions are obtained and then fused into a single predic
 bash ./multiple_predictions.sh
 ```
 
-The segmentation results will be saved to $directory/results/result_vote.
+The segmentation results will be saved to $directory/Brats18_XXXX_XX_1/results/tumor_tiggw_class.nii.gz.
 
 ## Note
 The current version of this docker repository only supports cpu-based computation, which is far slower than using gpu. To run the code with GPU, please see non-dockered version of [brats18][github_code18].
